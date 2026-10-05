@@ -45,6 +45,6 @@ Full list: [known limitations](docs/known-limitations.md).
 
 **Skills shown:** OSPF · HSRP · STP and EtherChannel · VLANs and trunking · ACLs · NAT/PAT · DHCP snooping and DAI · GRE-over-IPsec · RADIUS 802.1X · structured troubleshooting
 
-*Method: the design brief, build configurations and seeded faults were prepared with Claude (an AI assistant). I built the network in Packet Tracer, ran the tests and troubleshot the faults.*
+How I worked: Configured, tested and troubleshot all 22 devices from a design specification and draft configurations prepared with an AI assistant (Claude). I corrected the drafts where they didn't match the topology or the simulator, ran daily verification checks, and diagnosed the faults from symptoms using show-command evidence and packet traces.
 
 *Author: Muhannad · CCNA 200-301. Contact details are on my GitHub profile.*
