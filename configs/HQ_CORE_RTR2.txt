@@ -1,0 +1,117 @@
+!
+version 15.4
+service timestamps log datetime msec
+no service timestamps debug datetime msec
+service password-encryption
+!
+hostname HQ_CORE_RTR2
+!
+!
+!
+enable secret <REDACTED>
+!
+!
+!
+clock timezone AST 3
+!
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+!
+!
+username admin privilege 15 secret <REDACTED>
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+ip ssh version 2
+ip ssh time-out 60
+ip domain-name lab.local
+ip name-server 10.20.20.10
+!
+!
+spanning-tree mode rapid-pvst
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 10.255.1.2 255.255.255.255
+!
+interface GigabitEthernet0/0/0
+ description to HQ-CORE-R1 (peer)
+ ip address 10.10.1.2 255.255.255.252
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/0/1
+ description to HQ-DIST-SW1 (second path)
+ ip address 10.10.3.1 255.255.255.252
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/0/2
+ description to HQ-DIST-SW2
+ ip address 10.10.4.1 255.255.255.252
+ duplex auto
+ speed auto
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+router ospf 1
+ router-id 10.255.1.2
+ log-adjacency-changes
+ network 10.10.4.0 0.0.0.3 area 1
+ network 10.10.3.0 0.0.0.3 area 1
+ network 10.10.1.0 0.0.0.3 area 1
+ network 10.255.1.2 0.0.0.0 area 1
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+ip access-list standard VTY-ACL
+ permit 10.10.99.0 0.0.0.255
+ permit 10.20.99.0 0.0.0.255
+ permit 10.30.99.0 0.0.0.255
+ permit 10.40.99.0 0.0.0.255
+ deny any
+!
+!
+!
+!
+snmp-server community <REDACTED> RO
+!
+logging 10.20.20.12
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ access-class VTY-ACL in
+ login local
+ transport input ssh
+line vty 5 15
+ access-class VTY-ACL in
+ login local
+ transport input ssh
+!
+!
+ntp server 10.20.20.12
+!
+end
+

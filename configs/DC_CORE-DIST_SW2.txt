@@ -1,0 +1,239 @@
+!
+version 12.2(37)SE1
+service timestamps log datetime msec
+no service timestamps debug datetime msec
+service password-encryption
+!
+hostname DC_CORE/DIST_SW2
+!
+!
+no profinet
+enable secret <REDACTED>
+!
+!
+!
+clock timezone AST 3
+!
+!
+!
+ip routing
+!
+!
+!
+!
+username admin privilege 15 secret <REDACTED>
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+ip ssh version 2
+ip ssh time-out 60
+ip domain-name lab.local
+ip name-server 10.20.20.10
+!
+!
+spanning-tree mode rapid-pvst
+spanning-tree vlan 99 priority 24576
+spanning-tree vlan 20,50 priority 28672
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 10.255.2.2 255.255.255.255
+!
+interface FastEthernet0/1
+ switchport trunk native vlan 999
+ switchport trunk allowed vlan 20,50,99,999
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface FastEthernet0/2
+ switchport trunk native vlan 999
+ switchport trunk allowed vlan 20,50,99,999
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface FastEthernet0/3
+ description to DC-Edge-RTR1
+ no switchport
+ ip address 10.20.3.1 255.255.255.252
+ duplex auto
+ speed auto
+!
+interface FastEthernet0/4
+ description to DC-CORE/DIST-SW1 (peer)
+ no switchport
+ ip address 10.20.1.2 255.255.255.252
+ duplex auto
+ speed auto
+!
+interface FastEthernet0/5
+!
+interface FastEthernet0/6
+!
+interface FastEthernet0/7
+!
+interface FastEthernet0/8
+!
+interface FastEthernet0/9
+!
+interface FastEthernet0/10
+!
+interface FastEthernet0/11
+!
+interface FastEthernet0/12
+!
+interface FastEthernet0/13
+!
+interface FastEthernet0/14
+!
+interface FastEthernet0/15
+!
+interface FastEthernet0/16
+!
+interface FastEthernet0/17
+!
+interface FastEthernet0/18
+!
+interface FastEthernet0/19
+!
+interface FastEthernet0/20
+!
+interface FastEthernet0/21
+!
+interface FastEthernet0/22
+!
+interface FastEthernet0/23
+!
+interface FastEthernet0/24
+!
+interface GigabitEthernet0/1
+!
+interface GigabitEthernet0/2
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan20
+ mac-address 0030.a3a8.7001
+ ip address 10.20.20.3 255.255.255.0
+ standby 20 ip 10.20.20.1
+ standby 20 priority 110
+ standby 20 preempt
+!
+interface Vlan50
+ mac-address 0030.a3a8.7002
+ ip address 10.20.50.3 255.255.255.0
+ ip helper-address 10.20.20.10
+ standby 50 ip 10.20.50.1
+ standby 50 priority 110
+ standby 50 preempt
+!
+interface Vlan99
+ mac-address 0030.a3a8.7003
+ ip address 10.20.99.3 255.255.255.0
+ ip helper-address 10.20.20.10
+ standby 99 ip 10.20.99.1
+ standby 99 priority 150
+ standby 99 preempt
+!
+router ospf 1
+ router-id 10.255.2.2
+ log-adjacency-changes
+ passive-interface Vlan20
+ passive-interface Vlan50
+ passive-interface Vlan99
+ network 10.20.1.0 0.0.0.3 area 2
+ network 10.20.3.0 0.0.0.3 area 2
+ network 10.20.20.0 0.0.0.255 area 2
+ network 10.20.99.0 0.0.0.255 area 2
+ network 10.255.2.2 0.0.0.0 area 2
+ network 10.20.50.0 0.0.0.255 area 2
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+ip access-list standard VTY-ACL
+ permit 10.10.99.0 0.0.0.255
+ permit 10.20.99.0 0.0.0.255
+ permit 10.30.99.0 0.0.0.255
+ permit 10.40.99.0 0.0.0.255
+ deny any
+ip access-list extended DC-SERVER-ACCESS
+ remark DHCP - relayed requests to the DHCP server, matched on destination
+ permit udp any host 10.20.20.10 eq bootps
+ remark DNS - end-host subnets (VLAN 10 and 50) to the DNS server
+ permit udp 10.10.10.0 0.0.0.255 host 10.20.20.10 eq domain
+ permit tcp 10.10.10.0 0.0.0.255 host 10.20.20.10 eq domain
+ permit udp 10.10.50.0 0.0.0.255 host 10.20.20.10 eq domain
+ permit tcp 10.10.50.0 0.0.0.255 host 10.20.20.10 eq domain
+ permit udp 10.20.50.0 0.0.0.255 host 10.20.20.10 eq domain
+ permit tcp 10.20.50.0 0.0.0.255 host 10.20.20.10 eq domain
+ permit udp 10.30.10.0 0.0.0.255 host 10.20.20.10 eq domain
+ permit tcp 10.30.10.0 0.0.0.255 host 10.20.20.10 eq domain
+ permit udp 10.30.50.0 0.0.0.255 host 10.20.20.10 eq domain
+ permit tcp 10.30.50.0 0.0.0.255 host 10.20.20.10 eq domain
+ permit udp 10.40.10.0 0.0.0.255 host 10.20.20.10 eq domain
+ permit tcp 10.40.10.0 0.0.0.255 host 10.20.20.10 eq domain
+ permit udp 10.40.50.0 0.0.0.255 host 10.20.20.10 eq domain
+ permit tcp 10.40.50.0 0.0.0.255 host 10.20.20.10 eq domain
+ remark TACACS+ - tcp 49 to the AAA server, 10.x and 172.16.x edge-router sources
+ permit tcp 10.0.0.0 0.255.255.255 host 10.20.20.11 eq 49
+ permit tcp 172.16.0.0 0.0.255.255 host 10.20.20.11 eq 49
+ remark RADIUS - WLC and APs (Local Auth makes each AP the NAS)
+ permit udp 10.10.99.0 0.0.0.255 host 10.20.20.11 eq 1645
+ permit udp 10.10.99.0 0.0.0.255 host 10.20.20.11 eq 1812
+ permit udp 10.20.99.0 0.0.0.255 host 10.20.20.11 eq 1645
+ permit udp 10.20.99.0 0.0.0.255 host 10.20.20.11 eq 1812
+ permit udp 10.30.99.0 0.0.0.255 host 10.20.20.11 eq 1645
+ permit udp 10.30.99.0 0.0.0.255 host 10.20.20.11 eq 1812
+ permit udp 10.40.99.0 0.0.0.255 host 10.20.20.11 eq 1645
+ permit udp 10.40.99.0 0.0.0.255 host 10.20.20.11 eq 1812
+ remark Syslog and NTP - 10.x devices and 172.16.x edge-router sources
+ permit udp 10.0.0.0 0.255.255.255 host 10.20.20.12 eq 514
+ permit udp 172.16.0.0 0.0.255.255 host 10.20.20.12 eq 514
+ permit udp 10.0.0.0 0.255.255.255 host 10.20.20.12 eq 123
+ permit udp 172.16.0.0 0.0.255.255 host 10.20.20.12 eq 123
+ remark ICMP - reachability tests to the DC servers
+ permit icmp 10.0.0.0 0.255.255.255 10.20.20.0 0.0.0.255 echo
+ permit icmp 10.0.0.0 0.255.255.255 10.20.20.0 0.0.0.255 echo-reply
+ deny ip any any
+!
+!
+!
+!
+!
+snmp-server community <REDACTED> RO
+!
+logging 10.20.20.12
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ access-class VTY-ACL in
+ login local
+ transport input ssh
+line vty 5 15
+ access-class VTY-ACL in
+ login local
+ transport input ssh
+!
+!
+!
+ntp server 10.20.20.12
+!
+end
+

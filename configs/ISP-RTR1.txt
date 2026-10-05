@@ -1,0 +1,96 @@
+!
+version 15.4
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname ISP-RTR1
+!
+!
+!
+!
+!
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 10.255.0.1 255.255.255.255
+!
+interface GigabitEthernet0/0/0
+ description to HQ-Edge-RTR1
+ ip address 172.16.1.2 255.255.255.252
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/0/1
+ description to BR-A-RTR1
+ ip address 172.16.3.2 255.255.255.252
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/0/2
+ description to ISP-RTR2 (backbone)
+ ip address 172.16.0.1 255.255.255.252
+ duplex auto
+ speed auto
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan10
+ mac-address 00d0.58ae.1101
+ no ip address
+!
+router ospf 1
+ router-id 10.255.0.1
+ log-adjacency-changes
+ network 172.16.1.0 0.0.0.3 area 0
+ network 172.16.3.0 0.0.0.3 area 0
+ network 172.16.0.0 0.0.0.3 area 0
+ network 10.255.0.1 0.0.0.0 area 0
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+!
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+!
+!
+end
+

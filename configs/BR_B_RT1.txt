@@ -1,0 +1,166 @@
+!
+version 15.4
+service timestamps log datetime msec
+no service timestamps debug datetime msec
+service password-encryption
+!
+hostname BR_B_RT1
+!
+!
+!
+enable secret <REDACTED>
+!
+!
+!
+!
+!
+aaa new-model
+!
+aaa authentication login default group tacacs+ local 
+!
+!
+aaa authorization exec default group tacacs+ local
+!
+!
+clock timezone AST 3
+!
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+!
+!
+username admin privilege 15 secret <REDACTED>
+!
+!
+crypto isakmp policy 10
+ encr aes 256
+ authentication pre-share
+ group 5
+!
+crypto isakmp key <REDACTED> address 192.168.200.1
+!
+!
+!
+crypto ipsec transform-set TS esp-aes 256 esp-sha-hmac
+!
+crypto map VPN-MAP 10 ipsec-isakmp 
+ set peer 192.168.200.1
+ set transform-set TS 
+ match address GRE-TO-HQ
+!
+!
+!
+!
+!
+!
+ip ssh version 2
+ip ssh time-out 60
+ip domain-name lab.local
+ip name-server 10.20.20.10
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 10.255.4.2 255.255.255.255
+!
+interface Tunnel1
+ ip address 172.16.101.2 255.255.255.252
+ mtu 1476
+ tunnel source GigabitEthernet0/0/1
+ tunnel destination 192.168.200.1
+!
+!
+interface GigabitEthernet0/0/0
+ description to BR-B-SW1
+ ip address 10.40.1.2 255.255.255.252
+ ip nat inside
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/0/1
+ description to INET-RTR1 (backup)
+ ip address 192.168.200.9 255.255.255.252
+ duplex auto
+ speed auto
+ crypto map VPN-MAP
+!
+interface GigabitEthernet0/0/2
+ description to ISP-RTR2
+ ip address 172.16.4.1 255.255.255.252
+ ip nat outside
+ duplex auto
+ speed auto
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+router ospf 1
+ router-id 10.255.4.2
+ log-adjacency-changes
+ area 4 stub no-summary
+ network 10.40.1.0 0.0.0.3 area 4
+ network 172.16.4.0 0.0.0.3 area 0
+ network 10.255.4.2 0.0.0.0 area 0
+ network 172.16.101.0 0.0.0.3 area 0
+!
+ip nat inside source list NAT-PAT interface GigabitEthernet0/0/2 overload
+ip classless
+ip route 0.0.0.0 0.0.0.0 192.168.200.10 130
+!
+ip flow-export version 9
+!
+!
+ip access-list extended GRE-TO-HQ
+ permit gre host 192.168.200.9 host 192.168.200.1
+ip access-list standard VTY-ACL
+ permit 10.10.99.0 0.0.0.255
+ permit 10.20.99.0 0.0.0.255
+ permit 10.30.99.0 0.0.0.255
+ permit 10.40.99.0 0.0.0.255
+ deny any
+ip access-list extended NAT-PAT
+ deny ip 10.40.10.0 0.0.0.255 10.0.0.0 0.255.255.255
+ deny ip 10.40.10.0 0.0.0.255 172.16.0.0 0.0.255.255
+ deny ip 10.40.10.0 0.0.0.255 192.168.200.0 0.0.0.255
+ deny ip 10.40.99.0 0.0.0.255 10.0.0.0 0.255.255.255
+ deny ip 10.40.99.0 0.0.0.255 172.16.0.0 0.0.255.255
+ deny ip 10.40.99.0 0.0.0.255 192.168.200.0 0.0.0.255
+ permit ip 10.40.10.0 0.0.0.255 any
+ permit ip 10.40.99.0 0.0.0.255 any
+!
+!
+tacacs-server host 10.20.20.11
+tacacs-server key <REDACTED>
+!
+!
+snmp-server community <REDACTED> RO
+!
+logging 10.20.20.12
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ access-class VTY-ACL in
+ login authentication default
+ transport input ssh
+line vty 5 15
+ access-class VTY-ACL in
+ login authentication default
+ transport input ssh
+!
+!
+ntp server 10.20.20.12
+!
+end
+

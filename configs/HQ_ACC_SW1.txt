@@ -1,0 +1,219 @@
+!
+version 15.0
+service timestamps log datetime msec
+no service timestamps debug datetime msec
+service password-encryption
+!
+hostname HQ_ACC_SW1
+!
+enable secret <REDACTED>
+!
+!
+!
+clock timezone AST 3
+!
+ip ssh version 2
+ip ssh time-out 60
+ip domain-name lab.local
+ip name-server 10.20.20.10
+!
+username admin secret <REDACTED>
+!
+ip arp inspection vlan 10
+!
+ip dhcp snooping vlan 10
+ip dhcp snooping
+!
+spanning-tree mode rapid-pvst
+spanning-tree portfast default
+spanning-tree portfast bpduguard default
+spanning-tree extend system-id
+!
+interface FastEthernet0/1
+ switchport trunk native vlan 999
+ switchport trunk allowed vlan 10,99,999
+ ip arp inspection trust
+ ip dhcp snooping trust
+ switchport mode trunk
+!
+interface FastEthernet0/2
+ switchport trunk native vlan 999
+ switchport trunk allowed vlan 10,99,999
+ ip arp inspection trust
+ ip dhcp snooping trust
+ switchport mode trunk
+!
+interface FastEthernet0/3
+ switchport access vlan 10
+ switchport mode access
+ switchport port-security
+ switchport port-security mac-address sticky 
+ switchport port-security mac-address sticky 00D0.58C4.7825
+!
+interface FastEthernet0/4
+ switchport mode access
+ switchport port-security
+ switchport port-security mac-address sticky 
+ shutdown
+!
+interface FastEthernet0/5
+ switchport mode access
+ switchport port-security
+ switchport port-security mac-address sticky 
+ shutdown
+!
+interface FastEthernet0/6
+ switchport mode access
+ switchport port-security
+ switchport port-security mac-address sticky 
+ shutdown
+!
+interface FastEthernet0/7
+ switchport mode access
+ switchport port-security
+ switchport port-security mac-address sticky 
+ shutdown
+!
+interface FastEthernet0/8
+ switchport mode access
+ switchport port-security
+ switchport port-security mac-address sticky 
+ shutdown
+!
+interface FastEthernet0/9
+ switchport mode access
+ switchport port-security
+ switchport port-security mac-address sticky 
+ shutdown
+!
+interface FastEthernet0/10
+ switchport mode access
+ switchport port-security
+ switchport port-security mac-address sticky 
+ shutdown
+!
+interface FastEthernet0/11
+ switchport mode access
+ switchport port-security
+ switchport port-security mac-address sticky 
+ shutdown
+!
+interface FastEthernet0/12
+ switchport mode access
+ switchport port-security
+ switchport port-security mac-address sticky 
+ shutdown
+!
+interface FastEthernet0/13
+ switchport mode access
+ switchport port-security
+ switchport port-security mac-address sticky 
+ shutdown
+!
+interface FastEthernet0/14
+ switchport mode access
+ switchport port-security
+ switchport port-security mac-address sticky 
+ shutdown
+!
+interface FastEthernet0/15
+ switchport mode access
+ switchport port-security
+ switchport port-security mac-address sticky 
+ shutdown
+!
+interface FastEthernet0/16
+ switchport mode access
+ switchport port-security
+ switchport port-security mac-address sticky 
+ shutdown
+!
+interface FastEthernet0/17
+ switchport mode access
+ switchport port-security
+ switchport port-security mac-address sticky 
+ shutdown
+!
+interface FastEthernet0/18
+ switchport mode access
+ switchport port-security
+ switchport port-security mac-address sticky 
+ shutdown
+!
+interface FastEthernet0/19
+ switchport mode access
+ switchport port-security
+ switchport port-security mac-address sticky 
+ shutdown
+!
+interface FastEthernet0/20
+ switchport mode access
+ switchport port-security
+ switchport port-security mac-address sticky 
+ shutdown
+!
+interface FastEthernet0/21
+ switchport mode access
+ switchport port-security
+ switchport port-security mac-address sticky 
+ shutdown
+!
+interface FastEthernet0/22
+ switchport mode access
+ switchport port-security
+ switchport port-security mac-address sticky 
+ shutdown
+!
+interface FastEthernet0/23
+ switchport mode access
+ switchport port-security
+ switchport port-security mac-address sticky 
+ shutdown
+!
+interface FastEthernet0/24
+ switchport mode access
+ switchport port-security
+ switchport port-security mac-address sticky 
+ shutdown
+!
+interface GigabitEthernet0/1
+!
+interface GigabitEthernet0/2
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan99
+ ip address 10.10.99.11 255.255.255.0
+!
+ip default-gateway 10.10.99.1
+!
+logging 10.20.20.12
+!
+!
+snmp-server community <REDACTED> RO
+!
+ip access-list standard VTY-ACL
+ permit 10.10.99.0 0.0.0.255
+ permit 10.20.99.0 0.0.0.255
+ permit 10.30.99.0 0.0.0.255
+ permit 10.40.99.0 0.0.0.255
+ deny any
+line con 0
+!
+line vty 0 4
+ access-class VTY-ACL in
+ login local
+ transport input ssh
+line vty 5 15
+ access-class VTY-ACL in
+ login local
+ transport input ssh
+!
+!
+!
+ntp server 10.20.20.12
+!
+end
+

@@ -1,0 +1,92 @@
+!
+version 15.4
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname ISP_RTR2
+!
+!
+!
+!
+!
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 10.255.0.2 255.255.255.255
+!
+interface GigabitEthernet0/0/0
+ description to BR-B-RT1
+ ip address 172.16.4.2 255.255.255.252
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/0/1
+ description TO ISP-RTR1
+ ip address 172.16.0.2 255.255.255.252
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/0/2
+ description TO DC-EDGE-RTR1
+ ip address 172.16.2.2 255.255.255.252
+ duplex auto
+ speed auto
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+router ospf 1
+ router-id 10.255.0.2
+ log-adjacency-changes
+ network 172.16.4.0 0.0.0.3 area 0
+ network 172.16.2.0 0.0.0.3 area 0
+ network 172.16.0.0 0.0.0.3 area 0
+ network 10.255.0.2 0.0.0.0 area 0
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+!
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+!
+!
+end
+
