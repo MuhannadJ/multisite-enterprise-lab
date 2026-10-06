@@ -112,7 +112,7 @@ Run after R1 and R2 so the baseline is clean. Always restore the link and confir
 1. On BR_B_RT1: `show ip route` (OSPF routes via 172.16.4.2, ISP_RTR2) and `show crypto ipsec sa`.
 2. On BR_B_RT1: `interface gigabitethernet 0/0/2` → `shutdown`.
 3. Wait for OSPF to converge. The route must now use 172.16.101.1; the counters must rise on the same SA.
-4. Traceroute from BR_B_SW1 (Branch B has no PC) to 10.20.20.10.
+4. Traceroute from BR_B_SW1 to 10.20.20.10.
 5. Restore: `no shutdown` on Gi0/0/2.
 
 ### HQ HSRP data-plane failover
