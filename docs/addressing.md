@@ -191,7 +191,7 @@ Applied **outbound on the VLAN 20 SVI** of both DC_CORE/DIST switches. 32 lines:
 | 1 | `permit udp any host 10.20.20.10 eq bootps` | DHCP relay traffic from any site |
 | 14 | `permit udp` and `permit tcp` to 10.20.20.10 `eq domain` from 10.10.10.0, 10.10.50.0, 10.20.50.0, 10.30.10.0, 10.30.50.0, 10.40.10.0, 10.40.50.0 (/24 each) | DNS from the DATA and WIRELESS subnets |
 | 2 | `permit tcp 10.0.0.0 0.255.255.255` and `172.16.0.0 0.0.255.255` to 10.20.20.11 `eq 49` | TACACS+ |
-| 8 | `permit udp` ports 1645 and 1812 to 10.20.20.11 from the four 10.x.99.0/24 subnets | RADIUS from the APs (VLAN 99) |
+| 8 | `permit udp` ports 1645 and 1812 to 10.20.20.11 from the four 10.x.99.0/24 subnets | RADIUS from the VLAN 99 subnets (WLC and APs) |
 | 4 | `permit udp` ports 514 and 123 to 10.20.20.12 from 10.0.0.0/8 and 172.16.0.0/16 | Syslog and NTP |
 | 2 | `permit icmp 10.0.0.0 0.255.255.255 10.20.20.0 0.0.0.255` for `echo` and `echo-reply` | Reachability only |
 | 1 | `deny ip any any` | Explicit closer (the image rejects the `log` keyword) |
