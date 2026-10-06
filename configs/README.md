@@ -10,7 +10,7 @@ Sanitized `show running-config` exports of all 22 IOS devices, one file per devi
 | Branch A (4) | BR_A_RTR1, BR-A-RTR2, BR_A_SW1, BR_A_SW2 |
 | Branch B (2) | BR_B_RT1, BR_B_SW1 |
 
-Not included: the WLC configuration and the three server configurations (DHCP/DNS, AAA, Syslog/NTP). Packet Tracer does not export these as text; their relevant settings are documented in [`../docs/addressing.md`](../docs/addressing.md).
+Not included: the WLC configuration, the four lightweight APs and the three server configurations (DHCP/DNS, AAA, Syslog/NTP). The Packet Tracer version used here did not export these as text; their relevant settings are described in [`../docs/addressing.md`](../docs/addressing.md) and [`../docs/design-decisions.md`](../docs/design-decisions.md).
 
 ## What is redacted
 
