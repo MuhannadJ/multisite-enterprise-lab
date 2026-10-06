@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | **Severity** | P2 — wireless clients could not complete login or obtain an address at several sites |
-| **Type** | Real defects in the build (not planted) |
+| **Type** | Unplanned defects in the build (not planted) |
 | **Build days** | Sept 27–30 |
 | **Devices** | WLC, AP1–AP4, DC/Branch distribution and access switches, DHCP server |
 | **Status** | Resolved except AP selection: with the final AP range the phones associate, but some join an AP at another site (see [known limitations](../docs/known-limitations.md)) |
