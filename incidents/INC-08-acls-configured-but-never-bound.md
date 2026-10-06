@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | **Severity** | P2 — security controls appeared configured but were not enforced |
-| **Type** | Real defect in the build (not planted) |
+| **Type** | Unplanned defect in the build (not planted) |
 | **Build days** | Day 5 |
 | **Devices** | HQ-DIST-SW1/SW2, BR_A_SW1/SW2, BR_B_SW1 (`DATA-IN`); DC_CORE/DIST_SW1/SW2 (`DC-SERVER-ACCESS`) |
 | **Status** | Resolved; a reload behaviour is documented in [runbooks R1](../docs/runbooks.md#r1--re-apply-svi-acl-bindings-after-loading-the-pkt) |
