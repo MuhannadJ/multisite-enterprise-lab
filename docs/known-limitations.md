@@ -35,7 +35,7 @@ Three kinds of limitation, kept separate on purpose:
 | One edge router at HQ and at the DC; one router at Branch B | A second edge router at HQ and the DC was considered and reverted; Branch B was kept deliberately small, consistent with its totally stubby area |
 | DC has no independent backup WAN path and no GRE-over-IPsec tunnel | The DC relies on rerouting through the WAN core; INET_RTR1 is wired only to HQ and the two branches |
 | HQ_EDGE_RTR1 is single-homed to HQ_CORE_RTR1 | All three of its interfaces are in use (core, ISP, INET) |
-| GRE-over-IPsec is beyond CCNA scope | Included as a stretch goal; documented as such rather than presented at the same mastery tier |
+| GRE-over-IPsec backup tunnels are an extension beyond CCNA scope | Included as an extension to the core lab. Verification: [verification report](verification-report.md); open issue: [INC-13](../incidents/INC-13-gre-ipsec-stuck-sa-after-load.md) |
 | TACACS+ is a pilot on two routers (HQ_EDGE_RTR1, BR_B_RT1); logins land at `>` | Piloted on two test devices; all others use local accounts |
 | PAT ACLs cover DATA and MGMT only; WIRELESS (VLAN 50) is not translated | The topology contains no Internet-facing host, so the PAT behaviour demonstrated is the exclusion of inter-site traffic ([INC-07](../incidents/INC-07-nat-pat-translating-inter-site-traffic.md)) |
 | DC-SERVER-ACCESS permits TACACS+, syslog and NTP from broad 10.0.0.0/8 and 172.16.0.0/16 ranges | No source-interface option for these on the platform |
