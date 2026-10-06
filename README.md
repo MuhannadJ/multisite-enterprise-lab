@@ -2,13 +2,17 @@
 
 A four-site enterprise network (HQ, data center and two branches) built in Cisco Packet Tracer and connected through a simulated WAN. Configured routing, redundancy, wireless and management/access controls, tested three failover scenarios, and documented 13 troubleshooting cases using a structured NOC-style workflow.
 
-**Read next:** [Troubleshooting](TROUBLESHOOTING.md) · [Key findings](docs/key-findings.md) · [Full overview](docs/full-overview.md) · [All 13 incident reports](incidents/README.md) · [Device configs](configs/README.md)
+**Read next:** [Troubleshooting](TROUBLESHOOTING.md) · [Key findings](docs/key-findings.md) · [Full overview](docs/full-overview.md) · [All 13 incident reports](incidents/README.md) · [Device configs](configs/README.md) · [Download the lab](MEGA.LAB.pkt)
 
 ![Packet Tracer topology](docs/img/topology.png)
 
 *Topology as built in Packet Tracer. The dotted lines are wireless associations; some phones joined an AP at another site (see [known limitations](docs/known-limitations.md)).*
 
 ---
+
+## Open the lab
+
+Download [`MEGA.LAB.pkt`](MEGA.LAB.pkt) and open it in Cisco Packet Tracer. After loading, run [runbook R1](docs/runbooks.md#r1--re-apply-svi-acl-bindings-after-loading-the-pkt) to re-apply the SVI ACL bindings and [runbook R2](docs/runbooks.md#r2--recover-a-stuck-gre-over-ipsec-tunnel) to check both GRE-over-IPsec tunnels, then confirm the four lightweight APs register with the WLC. WLC web UI login: `admin` / `Cisco123` (lab-only).
 
 ## What was built
 
@@ -25,10 +29,10 @@ A four-site enterprise network (HQ, data center and two branches) built in Cisco
 
 | Test | Result | Evidence |
 |---|---|---|
-| Branch A and Branch B primary WAN link down | Traffic moves to the IPsec tunnel | Captured output |
-| HQ gateway failover | Pass, including the data plane (switch isolated at port level) | Captured output |
+| Branch A and Branch B primary WAN link down | Traffic moves to the IPsec tunnel | Output reviewed in session |
+| HQ gateway failover | Pass, including the data plane (switch isolated at port level) | Output reviewed in session |
 | `DATA-IN` ACL blocks user VLAN → management VLAN | Pass | Blocked ping + counters (tested on HQ-DIST-SW1) |
-| `DC-SERVER-ACCESS` ACL final state | 0 hits on the closing `deny ip any any` | Captured output |
+| `DC-SERVER-ACCESS` ACL final state | 0 hits on the closing `deny ip any any` | Output reviewed in session |
 | DHCP relay and leases at HQ, Branch A, Branch B | Pass | Operator-observed |
 | Wireless client login at HQ, DC, Branch A, Branch B | Pass | Operator-observed |
 
