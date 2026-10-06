@@ -60,16 +60,16 @@ Full detail and raw evidence summaries: [`docs/verification-report.md`](verifica
 
 | Test | Result | Evidence |
 |---|---|---|
-| Branch A primary WAN link down → traffic moves to the IPsec tunnel | Pass | Captured output: IPsec counters rose, traceroute path via tunnel |
-| Branch B primary WAN link down → traffic moves to the IPsec tunnel | Pass | Captured output: route change, same SA, counters rose |
-| HQ HSRP failover — control plane and preemption | Pass | Captured output |
-| HQ HSRP failover — data plane (traffic actually forwarded by SW2 with ACL enforced) | Pass, **with a platform caveat** | Captured output; required isolating SW1 at port level |
-| `DC-SERVER-ACCESS` final state | Pass: `deny ip any any` = 0 hits on both DC switches | Captured output |
+| Branch A primary WAN link down → traffic moves to the IPsec tunnel | Pass | Output reviewed in session: IPsec counters rose, traceroute path via tunnel |
+| Branch B primary WAN link down → traffic moves to the IPsec tunnel | Pass | Output reviewed in session: route change, same SA, counters rose |
+| HQ HSRP failover — control plane and preemption | Pass | Output reviewed in session |
+| HQ HSRP failover — data plane (traffic actually forwarded by SW2 with ACL enforced) | Pass, **with a platform caveat** | Output reviewed in session; required isolating SW1 at port level |
+| `DC-SERVER-ACCESS` final state | Pass: `deny ip any any` = 0 hits on both DC switches | Output reviewed in session |
 | `DATA-IN` blocking VLAN 10 → VLAN 99 | Pass | Blocked ping + counters on HQ-DIST-SW1 |
 | DHCP across HQ, Branch A, Branch B | Pass after INC-05, INC-06, INC-07 fixes | Operator-observed |
 | WPA2-Enterprise client login (HQ, DC, Branch A, Branch B) | Pass | Operator-observed |
 
-Evidence labels: **Captured output** means the CLI output was pasted into the working session and reviewed. **Operator-observed** means the lab owner ran the test and reported the result.
+Evidence labels: **Output reviewed in session** means the CLI output was pasted into the working session and reviewed. **Operator-observed** means the lab owner ran the test and reported the result.
 
 ---
 
