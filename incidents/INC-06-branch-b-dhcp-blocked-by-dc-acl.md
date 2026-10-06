@@ -1,10 +1,10 @@
-# INC-06 — Branch B DHCP blocked by the DC server ACL (NOC-0925-01)
+# INC-06 — Branch B DHCP blocked by the DC server ACL (Lab ticket 2)
 
 | | |
 |---|---|
 | **Severity** | P2 — one site could not lease addresses |
 | **Type** | Planted fault, found by NOC-style diagnosis |
-| **Ticket** | NOC-0925-01 |
+| **Lab ticket** | 2 |
 | **Build day** | Day 5 (services and wireless) |
 | **Devices** | DC_CORE/DIST_SW1, DC_CORE/DIST_SW2 (`DC-SERVER-ACCESS`), BR_B_SW1 |
 | **Status** | Resolved |
