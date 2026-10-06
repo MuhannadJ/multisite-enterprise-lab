@@ -30,7 +30,7 @@ Each entry: **decision**, **why**, **trade-off**. Decisions marked *(reversed)* 
 
 **Floating static defaults at AD 130.** Subordinate to OSPF and any default OSPF later originates, so they act as the last resort over INET_RTR1. Applied at HQ_EDGE_RTR1, BR-A-RTR2 and BR_B_RT1. The DC is excluded because there is no backup path to point at.
 
-**Backup tunnels as GRE over IPsec, hub and spoke through HQ, with OSPF inside the tunnels.** Tunnel-learned routes are preferred over the floating statics. The IPsec profile / `tunnel protection` method was the first choice and is rejected by the image, so the **legacy crypto map** is used. This is beyond CCNA scope and is documented as such. *Trade-off:* the crypto-map method is the less modern one; see [INC-13](../incidents/INC-13-gre-ipsec-stuck-sa-after-load.md) for the fault it coincides with.
+**Backup tunnels as GRE over IPsec, hub and spoke through HQ, with OSPF inside the tunnels.** Tunnel-learned routes are preferred over the floating statics. The IPsec profile / `tunnel protection` method was the first choice and is rejected by the image, so the **legacy crypto map** is used. *Trade-off:* the crypto-map method is the less modern one; see [INC-13](../incidents/INC-13-gre-ipsec-stuck-sa-after-load.md) for the fault it coincides with.
 
 **Extended `NAT-PAT` ACL that excludes private destinations.** A source-only standard ACL translated inter-site replies and broke TCP between sites ([INC-07](../incidents/INC-07-nat-pat-translating-inter-site-traffic.md)). The extended ACL denies translation to 10.0.0.0/8, 172.16.0.0/16 and 192.168.200.0/24 first.
 
