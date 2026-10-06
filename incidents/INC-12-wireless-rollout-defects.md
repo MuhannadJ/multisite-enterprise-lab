@@ -35,7 +35,7 @@ No single checklist was run consistently across all four sites when VLAN 50 and 
 
 ## Verification
 
-All four APs joined the WLC (4 total, 4 up, 0 down). WPA2-Enterprise client login, DHCP and OSPF-routed replies were confirmed at HQ (laptop and phone), the DC and Branch B. Branch A client success was not confirmed with traced evidence ([V9–V10](../docs/verification-report.md#v9v10--wireless)). At the final AP range (100 m) the phones associate (operator-observed), but the AP each phone joined was not confirmed in the WLC. The running-configs support the cross-site picture: the sticky MAC tables on the AP-facing ports at HQ, DC and Branch B share 6 to 8 of the same client MAC addresses with each other, which is consistent with phones having associated with APs at more than one site.
+All four APs joined the WLC (4 total, 4 up, 0 down). WPA2-Enterprise client login, DHCP and OSPF-routed replies were confirmed at HQ (laptop and phone), the DC and Branch B. At Branch A a phone placed next to AP3 obtained a lease from the Branch A VLAN 50 pool (10.30.50.123, Oct 6; [V9–V10](../docs/verification-report.md#v9v10--wireless)). At the final AP range (100 m) the phones associate (operator-observed), but the AP each phone joined was not confirmed in the WLC. The running-configs support the cross-site picture: the sticky MAC tables on the AP-facing ports at HQ, DC and Branch B share 6 to 8 of the same client MAC addresses with each other, which is consistent with phones having associated with APs at more than one site.
 
 ## Prevention — per-site VLAN rollout checklist
 
