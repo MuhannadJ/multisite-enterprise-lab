@@ -2,7 +2,7 @@
 
 Three kinds of limitation, kept separate on purpose:
 
-- **Platform** — the Packet Tracer image cannot do it.
+- **Platform** — the Packet Tracer image used here did not support it.
 - **Design** — an accepted trade-off.
 - **Open** — a defect or behaviour with an unproven cause.
 
