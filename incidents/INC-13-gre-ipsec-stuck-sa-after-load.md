@@ -52,4 +52,4 @@ HQ negotiates both tunnels at about the same time after a load. Both observed fa
 
 - After every load, run the two checks in R2 before trusting either backup path.
 - If a tunnel is in `MM_KEY_EXCH` and the keys match, suspect stale state before changing config again.
-- Record the fault as a reproducible, characterised, unexplained simulator behaviour with a documented recovery.
+- Record the fault as a recurring (seen twice), characterised, unexplained simulator behaviour with a documented recovery.
