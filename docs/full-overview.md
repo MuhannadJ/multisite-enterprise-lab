@@ -4,7 +4,7 @@ The long version of the [README](../README.md): the design in detail and the evi
 
 ## Summary
 
-A four-site enterprise network — HQ campus, data center, two branches, and a simulated WAN — built device by device in Cisco Packet Tracer, then **troubleshot, hardened and failover-tested** the way a NOC would run it.
+A four-site enterprise network (HQ campus, data center and two branches) built device by device in Cisco Packet Tracer and connected through a simulated WAN. Configured routing, redundancy, wireless and management/access controls, tested three failover scenarios, and documented 13 troubleshooting cases using a structured NOC-style workflow.
 
 The point of this repo is not only the final design. It is the **evidence trail**: 13 incident reports (symptom → evidence → root cause → fix → verification), a verification report that separates *captured output* from *operator-observed* results, and a list of what the platform could not do.
 
@@ -22,7 +22,7 @@ The point of this repo is not only the final design. It is the **evidence trail*
 | **Routing** | OSPFv2 multi-area (Area 0 WAN core, Areas 1–4 per site, Branch B totally stubby) |
 | **First-hop redundancy** | HSRP on every redundant gateway pair, STP root aligned with HSRP active per VLAN |
 | **Layer 2** | Manual VLANs (no VTP), Rapid PVST+, LACP EtherChannel, PortFast + BPDU Guard on the access switches, Root Guard on the HQ downlinks, port security |
-| **Security** | SSH-only management + VTY ACL on the 19 managed devices, `DATA-IN` and `DC-SERVER-ACCESS` ACLs, DHCP snooping + DAI (not at Branch B), TACACS+ (two-router pilot), SNMPv2c RO |
+| **Security** | SSH-only management + VTY ACL on the 19 managed devices, `DATA-IN` and `DC-SERVER-ACCESS` ACLs, DHCP snooping + DAI at HQ and Branch A, TACACS+ (two-router pilot), SNMPv2c RO |
 | **WAN edge** | PAT with destination-scoped ACL, floating static defaults (AD 130), GRE-over-IPsec backup to both branches |
 | **Services** | DHCP/DNS (10.20.20.10), AAA (10.20.20.11), Syslog/NTP (10.20.20.12), all in DC VLAN 20 |
 | **Wireless** | One WLC at HQ, one AP per site, single SSID `CORP-WIFI`, WPA2-Enterprise (PEAP-MSCHAPv2) against RADIUS, FlexConnect local switching |
@@ -33,7 +33,7 @@ The point of this repo is not only the final design. It is the **evidence trail*
 
 **Layer 2.** VLAN 10 DATA (HQ, Branch A, Branch B), VLAN 20 SERVERS (DC only), VLAN 50 WIRELESS (all sites), VLAN 99 MGMT (all sites), VLAN 999 NATIVE (unused; the native VLAN on all inter-switch trunks, while AP-facing ports use native 99). VLAN 1 is unused. VTP was rejected in favour of manual per-switch VLAN config to avoid revision-number propagation risk. Distribution pairs are joined by LACP bundles at HQ and Branch A; the DC pair uses a single routed link.
 
-**Gateway redundancy.** HSRP with the convention **VIP = .1, SW1 = .2, SW2 = .3, group number = VLAN ID**. For VLANs 10, 20 and 99 the STP root and HSRP active are deliberately aligned and alternated between the two switches so each carries one share of the traffic. Priorities and roots are tabulated in [`docs/addressing.md`](addressing.md).
+**Gateway redundancy.** HSRP with the convention **VIP = .1, SW1 = .2, SW2 = .3, group number = VLAN ID** (except Branch A VLAN 99, whose VIP is .10; see INC-01). For every VLAN with an HSRP group (10, 20, 50 and 99) the STP root and HSRP active are deliberately aligned and alternated between the two switches so each carries one share of the traffic. Priorities and roots are tabulated in [`docs/addressing.md`](addressing.md).
 
 **Routing.** OSPF area design follows the site boundaries. ABRs: HQ_EDGE_RTR1 (Area 1), DC-EDGE-RTR1 (Area 2), BR_A_RTR1 (Area 3), BR_B_RT1 (Area 4, totally stubby). BR-A-RTR2 becomes an ABR through the IPsec tunnel. Floating static defaults (AD 130) via INET_RTR1 exist on HQ_EDGE_RTR1, BR-A-RTR2 and BR_B_RT1 and sit behind OSPF.
 
@@ -45,7 +45,7 @@ The point of this repo is not only the final design. It is the **evidence trail*
 - SSH v2 only and `VTY-ACL` (allowing only the four site MGMT subnets) on all 19 enterprise-managed devices. The three provider/WAN devices (ISP-RTR1, ISP_RTR2, INET_RTR1) are intentionally unhardened.
 - `DATA-IN` blocks VLAN 10 → every site's VLAN 99 (applied inbound on the VLAN 10 SVI of each gateway switch).
 - `DC-SERVER-ACCESS` (outbound on VLAN 20 SVI of both DC switches) is a per-service allow-list to the three servers with an explicit `deny ip any any`: [`docs/addressing.md`](addressing.md#dc-server-access-acl).
-- DHCP snooping + DAI on VLAN 10 at the HQ access switches and the Branch A switches; snooping is disabled at Branch B (see known limitations); none at the DC (VLAN 20 has no DHCP clients).
+- DHCP snooping + DAI on VLAN 10 at the HQ access switches and the Branch A switches; at Branch B global snooping is disabled, its VLAN 10 snooping and DAI lines remain in the config, and DAI was not tested there (see known limitations); none at the DC (VLAN 20 has no DHCP clients).
 - Port security with mixed violation modes; PortFast + BPDU Guard by default on the L2 access switches; Root Guard on the HQ distribution-to-access downlinks.
 - Unused FastEthernet ports shut on the access and branch switches (the Gi0/1–2 ports are left up and unconfigured; see [known limitations](known-limitations.md)).
 - TACACS+ is a **two-router pilot** (HQ_EDGE_RTR1, BR_B_RT1); all other devices use local accounts.
@@ -79,14 +79,14 @@ Evidence labels: **Captured output** means the CLI output was pasted into the wo
 
 Thirteen reports in [`incidents/`](../incidents/README.md). Six were silently planted faults found through normal NOC diagnosis; seven were unplanned defects found in the build itself.
 
-| ID | Title | Type | Severity |
+| ID | Title | Type | Lab severity |
 |---|---|---|---|
 | [INC-01](../incidents/INC-01-hsrp-vip-mismatch-branch-a.md) | HSRP virtual-IP mismatch, Branch A VLAN 99 | Planted | P2 |
 | [INC-02](../incidents/INC-02-isp-rtr2-swapped-interface-addresses.md) | ISP_RTR2 interface addresses swapped | Planted | P1 |
 | [INC-03](../incidents/INC-03-nat-inside-outside-misassigned.md) | DC edge NAT inside/outside misassigned | Planted | P2 |
 | [INC-04](../incidents/INC-04-ipsec-psk-mismatch-hq-branch-b.md) | IPsec pre-shared key mismatch, HQ ↔ Branch B | Planted | P2 |
-| [INC-05](../incidents/INC-05-dhcp-helper-address-wrong-hq-dist-sw2.md) | Wrong DHCP helper address on HQ-DIST-SW2 (NOC-0924-03) | Planted | P3 |
-| [INC-06](../incidents/INC-06-branch-b-dhcp-blocked-by-dc-acl.md) | Branch B DHCP blocked by the DC server ACL (NOC-0925-01) | Planted | P2 |
+| [INC-05](../incidents/INC-05-dhcp-helper-address-wrong-hq-dist-sw2.md) | Wrong DHCP helper address on HQ-DIST-SW2 (Lab ticket 1) | Planted | P3 |
+| [INC-06](../incidents/INC-06-branch-b-dhcp-blocked-by-dc-acl.md) | Branch B DHCP blocked by the DC server ACL (Lab ticket 2) | Planted | P2 |
 | [INC-07](../incidents/INC-07-nat-pat-translating-inter-site-traffic.md) | PAT translating inter-site traffic; TACACS+ connections reset | Unplanned | P2 |
 | [INC-08](../incidents/INC-08-acls-configured-but-never-bound.md) | ACLs configured but never bound to interfaces | Unplanned | P2 |
 | [INC-09](../incidents/INC-09-hsrp-stp-priority-misalignment.md) | HSRP priorities misaligned with STP roots | Unplanned | P3 |
@@ -105,7 +105,7 @@ Smaller findings (OSPF process bug, SSH credential quirk, DHCP pool typo, INET a
 
 Short version; the full list with impact and workaround is in [`docs/known-limitations.md`](known-limitations.md).
 
-- **Packet Tracer does not support** VRRP, GLBP, IP SLA, `tunnel protection`/IPsec profiles, ACL `log`, SNMP traps/hosts, several AAA/TACACS source options. HSRP replaced VRRP/GLBP everywhere; crypto maps replaced IPsec profiles.
+- **The Packet Tracer device images used here did not support** VRRP, GLBP, IP SLA, `tunnel protection`/IPsec profiles, ACL `log`, SNMP traps/hosts, several AAA/TACACS source options. HSRP replaced VRRP/GLBP everywhere; crypto maps replaced IPsec profiles.
 - **GRE-over-IPsec fault on load:** after loading the `.pkt`, one of HQ's two tunnels can be stuck on a stale ISAKMP SA (seen on both loads tested). Root cause is unproven; a recovery procedure is in [`docs/runbooks.md`](runbooks.md) ([INC-13](../incidents/INC-13-gre-ipsec-stuck-sa-after-load.md)).
 - **SVI ACL bindings are not in effect after reloading the `.pkt`.** The ACL definitions persist, but the bindings must be re-applied, and this image does not list them in the running-config afterwards, so they are evidenced by counters and pings rather than by the exported configs ([`docs/runbooks.md`](runbooks.md#r1--re-apply-svi-acl-bindings-after-loading-the-pkt)).
 - **Shutting an SVI does not stop that switch forwarding or enforcing its ACL** in this simulator; HSRP data-plane failover was therefore tested by isolating the switch at port level.
