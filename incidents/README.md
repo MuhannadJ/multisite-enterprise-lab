@@ -4,7 +4,7 @@ One report per incident, written in NOC style: **symptom → impact → diagnosi
 
 ## How to read these
 
-- **Planted faults (INC-01 to INC-06)** were introduced silently into the build and found through normal troubleshooting. Where a ticket existed it is referenced (NOC-0924-03, NOC-0925-01).
+- **Planted faults (INC-01 to INC-06)** were introduced silently into the build and found through normal troubleshooting. Where a lab exercise ticket existed it is referenced (Lab ticket 1, Lab ticket 2).
 - **Unplanned defects (INC-07 to INC-13)** were found in the build itself, not planted.
 - Reports are reconstructed from the working notes of the lab. Commands listed in *Diagnosis* are the ones that expose each fault; command output is quoted only where it was captured.
 - Pre-shared keys, community strings and passwords are deliberately not reproduced.
@@ -18,14 +18,14 @@ One report per incident, written in NOC style: **symptom → impact → diagnosi
 
 ## Index
 
-| ID | Title | Type | Sev | Status |
+| ID | Title | Type | Lab severity | Status |
 |---|---|---|---|---|
 | [INC-01](INC-01-hsrp-vip-mismatch-branch-a.md) | HSRP virtual-IP mismatch, Branch A VLAN 99 | Planted | P2 | Resolved |
 | [INC-02](INC-02-isp-rtr2-swapped-interface-addresses.md) | ISP_RTR2 interface addresses swapped | Planted | P1 | Resolved |
 | [INC-03](INC-03-nat-inside-outside-misassigned.md) | DC edge NAT inside/outside misassigned | Planted | P2 | Resolved |
 | [INC-04](INC-04-ipsec-psk-mismatch-hq-branch-b.md) | IPsec pre-shared key mismatch, HQ ↔ Branch B | Planted | P2 | Resolved |
-| [INC-05](INC-05-dhcp-helper-address-wrong-hq-dist-sw2.md) | Wrong DHCP helper address on HQ-DIST-SW2 (NOC-0924-03) | Planted | P3 | Resolved |
-| [INC-06](INC-06-branch-b-dhcp-blocked-by-dc-acl.md) | Branch B DHCP blocked by the DC server ACL (NOC-0925-01) | Planted | P2 | Resolved |
+| [INC-05](INC-05-dhcp-helper-address-wrong-hq-dist-sw2.md) | Wrong DHCP helper address on HQ-DIST-SW2 (Lab ticket 1) | Planted | P3 | Resolved |
+| [INC-06](INC-06-branch-b-dhcp-blocked-by-dc-acl.md) | Branch B DHCP blocked by the DC server ACL (Lab ticket 2) | Planted | P2 | Resolved |
 | [INC-07](INC-07-nat-pat-translating-inter-site-traffic.md) | PAT translating inter-site traffic; TACACS+ connections reset | Unplanned | P2 | Resolved |
 | [INC-08](INC-08-acls-configured-but-never-bound.md) | ACLs configured but never bound to interfaces | Unplanned | P2 | Resolved |
 | [INC-09](INC-09-hsrp-stp-priority-misalignment.md) | HSRP priorities misaligned with STP roots | Unplanned | P3 | Resolved |
