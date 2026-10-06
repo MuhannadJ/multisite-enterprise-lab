@@ -20,7 +20,7 @@ Tests that failed or were inconclusive are included. Items with no evidence are 
 | V7 | DHCP relay and lease across HQ, Branch A, Branch B | Pass after INC-05/06/07 | Operator-observed |
 | V8 | TACACS+ authentication on the two pilot routers | Pass, logins land at `>` | Operator-observed |
 | V9 | Wireless: AP join (4 of 4) | Pass | Operator-observed (WLC monitor summary) |
-| V10 | Wireless: WPA2-Enterprise client login | Pass at HQ, DC, Branch B | Operator-observed |
+| V10 | Wireless: WPA2-Enterprise client login | Pass at HQ, DC, Branch A, Branch B | Operator-observed (Branch A: phone IP-configuration screenshot reviewed) |
 | V11 | VTY ACL denies non-MGMT sources | Pass on HQ_EDGE_RTR1 and HQ-DIST-SW1 | Operator-observed (deny counters rising, SSH refused) |
 | V12 | GRE-over-IPsec stuck-SA fault and recovery | Reproduced twice, recovered once | Captured |
 
@@ -97,7 +97,7 @@ HQ_EDGE_RTR1 and BR_B_RT1 use `aaa authentication login default group tacacs+ lo
 
 ## V9–V10 — Wireless
 
-All four APs joined the WLC (monitor summary: 4 total, 4 up, 0 down). WPA2-Enterprise client logins (PEAP-MSCHAPv2 via RADIUS), DHCP lease and OSPF-routed DHCP replies were confirmed at HQ (laptop and phone), the DC (AP1) and Branch B (AP4). Branch A client success was not confirmed with traced evidence. At the final AP range of 100 m the phones associate (operator-observed), but in the Packet Tracer view some association lines run to an AP at another site, and the AP each phone joined was not confirmed in the WLC. At 20–30 m most phones did not associate at all. The cause was not isolated; Packet Tracer's help ties wireless range to the Physical workspace, which was not examined. See [known limitations](known-limitations.md).
+All four APs joined the WLC (monitor summary: 4 total, 4 up, 0 down). WPA2-Enterprise client logins (PEAP-MSCHAPv2 via RADIUS), DHCP lease and OSPF-routed DHCP replies were confirmed at HQ (laptop and phone), the DC (AP1) and Branch B (AP4). At Branch A (Oct 6), a phone placed next to AP3 associated and obtained 10.30.50.123 from the Branch A VLAN 50 pool (gateway 10.30.50.1, DNS 10.20.20.10); a screenshot of its IP configuration was reviewed, and the lease range is consistent with association through AP3. At the final AP range of 100 m the phones associate (operator-observed), but in the Packet Tracer view some association lines run to an AP at another site, and the AP each phone joined was not confirmed in the WLC. At 20–30 m most phones did not associate at all. The cause was not isolated; Packet Tracer's help ties wireless range to the Physical workspace, which was not examined. See [known limitations](known-limitations.md).
 
 ## V11 — VTY ACL
 
@@ -115,6 +115,5 @@ See [INC-13](../incidents/INC-13-gre-ipsec-stuck-sa-after-load.md). Observed on 
 - SNMP polling: there is no network management system in the topology, so SNMPv2c is configured only.
 - Syslog/NTP receipt on 10.20.20.12 from every device: the server and the client config exist; per-device receipt is not itemised.
 - VTY ACL enforcement on devices other than HQ_EDGE_RTR1 and HQ-DIST-SW1.
-- Wireless client association at Branch A with traced evidence.
 - Which AP each wireless client joined (some association lines cross sites at an AP range of 100 m).
 - Failover for the DC edge, HQ edge and Branch B router themselves (single points of failure by design).
