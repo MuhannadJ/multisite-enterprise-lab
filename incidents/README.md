@@ -5,7 +5,7 @@ One report per incident, written in NOC style: **symptom → impact → diagnosi
 ## How to read these
 
 - **Planted faults (INC-01 to INC-06)** were introduced silently into the build and found through normal troubleshooting. Where a ticket existed it is referenced (NOC-0924-03, NOC-0925-01).
-- **Real defects (INC-07 to INC-13)** were found in the build itself, not planted.
+- **Unplanned defects (INC-07 to INC-13)** were found in the build itself, not planted.
 - Reports are reconstructed from the working notes of the lab. Commands listed in *Diagnosis* are the ones that expose each fault; command output is quoted only where it was captured.
 - Pre-shared keys, community strings and passwords are deliberately not reproduced.
 - **Severity** is assigned in this write-up from observed impact:
