@@ -122,7 +122,7 @@ Do **not** use `shutdown` on the SVI as the test: the switch keeps forwarding (s
 1. On HQ-DIST-SW1: `show standby brief` (Active for VLANs 10 and 50).
 2. On HQ-DIST-SW1: `interface range fastethernet 0/1 - 5` → `shutdown`.
 3. From the HQ PC: `ping 10.20.20.10` (must succeed) and ping an address in 10.20.99.0/24 (must fail).
-4. On HQ-DIST-SW2: `show access-lists DATA-IN`. The `deny` line for 10.20.99.0 must show matches, which proves SW2 forwarded and enforced the ACL.
+4. On HQ-DIST-SW2: `show access-lists DATA-IN`. The `deny` line for 10.20.99.0 must show matches, which shows SW2 forwarded and enforced the ACL.
 5. Restore: `no shutdown` on the range. After `preempt` HQ-DIST-SW1 regains Active.
 
 ---
