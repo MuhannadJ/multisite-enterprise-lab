@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | **Severity** | P3 — suboptimal traffic path, no outage |
-| **Type** | Real defect in the build (not planted), found by auditing live configs against the design rule |
+| **Type** | Unplanned defect in the build (not planted), found by auditing live configs against the design rule |
 | **Build day** | Day 5 (Sept 27) |
 | **Devices** | HQ-DIST-SW1, HQ-DIST-SW2 (VLAN 10); BR_A_SW1 (VLAN 99) |
 | **Status** | Resolved |
