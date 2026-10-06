@@ -1,16 +1,16 @@
 # Key findings
 
-Ten findings from the 13 incident reports, chosen for **diagnostic depth and quality of evidence**, not for severity. Each links to its full report. "Planted" means the fault was seeded into the build for NOC-style diagnosis; "Unplanned" means it was a defect in the build itself.
+Ten findings from the 13 incident reports, selected for the clearest troubleshooting evidence, not for severity. Each links to its full report. "Planted" means the fault was seeded into the build for NOC-style diagnosis; "Unplanned" means it was a defect in the build itself.
 
 | # | Finding | Type | Report | What it shows |
 |---|---|---|---|---|
-| 1 | A "platform limitation" that was NAT rewriting server replies | Unplanned | [INC-07](../incidents/INC-07-nat-pat-translating-inter-site-traffic.md) | Packet-level reasoning; refusing to accept a label without proof |
+| 1 | A "platform limitation" that was NAT rewriting server replies | Unplanned | [INC-07](../incidents/INC-07-nat-pat-translating-inter-site-traffic.md) | Tested the platform-limitation hypothesis with packet tracing and ruled it out |
 | 2 | Security controls that existed but enforced nothing | Unplanned | [INC-08](../incidents/INC-08-acls-configured-but-never-bound.md) | Testing enforcement, not configuration |
 | 3 | One symptom, two causes: a config fault, then a simulator bug | Unplanned | [INC-10](../incidents/INC-10-hq-vlan50-split-brain.md) | Knowing when to stop editing config |
 | 4 | A security feature that blocked its own network | Unplanned | [INC-11](../incidents/INC-11-dc-root-guard-blocking-root-election.md) | Topology-aware reasoning |
 | 5 | The pattern behind twelve wireless defects | Unplanned | [INC-12](../incidents/INC-12-wireless-rollout-defects.md) | Root cause of a recurring class, turned into a checklist |
 | 6 | An unexplained tunnel fault, characterised instead of guessed | Unplanned, open | [INC-13](../incidents/INC-13-gre-ipsec-stuck-sa-after-load.md) | Write-up of an open issue: what was ruled out and what is unknown |
-| 7 | Same symptom, different cause: key mismatch vs stuck SA | Planted + unplanned | [INC-04](../incidents/INC-04-ipsec-psk-mismatch-hq-branch-b.md), [INC-13](../incidents/INC-13-gre-ipsec-stuck-sa-after-load.md) | A symptom is not a diagnosis |
+| 7 | Same symptom, different cause: key mismatch vs stuck SA | Planted + unplanned | [INC-04](../incidents/INC-04-ipsec-psk-mismatch-hq-branch-b.md), [INC-13](../incidents/INC-13-gre-ipsec-stuck-sa-after-load.md) | MM_KEY_EXCH appeared with mismatched keys (INC-04) and with byte-identical keys (INC-13) |
 | 8 | One site's DHCP outage, and two ACL gaps found beside it | Planted | [INC-06](../incidents/INC-06-branch-b-dhcp-blocked-by-dc-acl.md) | Scope-first diagnosis |
 | 9 | Misalignment found by audit, before any symptom | Unplanned | [INC-09](../incidents/INC-09-hsrp-stp-priority-misalignment.md) | Auditing against a written design rule |
 | 10 | Addressing faults found by subnet arithmetic | Planted + unplanned | [INC-02](../incidents/INC-02-isp-rtr2-swapped-interface-addresses.md), [minor findings](../incidents/minor-findings.md) | Subnet fundamentals applied to live faults |
