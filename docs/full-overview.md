@@ -67,7 +67,7 @@ Full detail and raw evidence summaries: [`docs/verification-report.md`](verifica
 | `DC-SERVER-ACCESS` final state | Pass: `deny ip any any` = 0 hits on both DC switches | Captured output |
 | `DATA-IN` blocking VLAN 10 → VLAN 99 | Pass | Blocked ping + counters on HQ-DIST-SW1 |
 | DHCP across HQ, Branch A, Branch B | Pass after INC-05, INC-06, INC-07 fixes | Operator-observed |
-| WPA2-Enterprise client login (HQ, DC, Branch B) | Pass | Operator-observed |
+| WPA2-Enterprise client login (HQ, DC, Branch A, Branch B) | Pass | Operator-observed |
 
 Evidence labels: **Captured output** means the CLI output was pasted into the working session and reviewed. **Operator-observed** means the lab owner ran the test and reported the result.
 
@@ -107,7 +107,7 @@ Short version; the full list with impact and workaround is in [`docs/known-limit
 - **GRE-over-IPsec fault on load:** after loading the `.pkt`, one of HQ's two tunnels can be stuck on a stale ISAKMP SA (seen on both loads tested). Root cause is unproven; a recovery procedure is in [`docs/runbooks.md`](runbooks.md) ([INC-13](../incidents/INC-13-gre-ipsec-stuck-sa-after-load.md)).
 - **SVI ACL bindings are not in effect after reloading the `.pkt`.** The ACL definitions persist, but the bindings must be re-applied, and this image does not list them in the running-config afterwards, so they are evidenced by counters and pings rather than by the exported configs ([`docs/runbooks.md`](runbooks.md#r1--re-apply-svi-acl-bindings-after-loading-the-pkt)).
 - **Shutting an SVI does not stop that switch forwarding or enforcing its ACL** in this simulator; HSRP data-plane failover was therefore tested by isolating the switch at port level.
-- **Wireless AP selection is not controlled.** At an AP range of 20–30 m most phones could not associate; at 100 m they do, but some join an AP at another site. The cause was not isolated. All four APs joined the WLC; client logins were confirmed at HQ, DC and Branch B.
+- **Wireless AP selection is not controlled.** At an AP range of 20–30 m most phones could not associate; at 100 m they do, but some join an AP at another site. The cause was not isolated. All four APs joined the WLC; client logins were confirmed at all four sites.
 - **TACACS+** is a two-router pilot and logins land at user EXEC (`>`), not privileged EXEC.
 - **Single points of failure by design:** one edge router at HQ and at the DC, one router at Branch B, and the DC has no backup WAN path.
 
