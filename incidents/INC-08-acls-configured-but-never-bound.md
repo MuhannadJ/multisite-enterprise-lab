@@ -20,7 +20,7 @@
 3. The same omission was then fixed on BR_A_SW1, BR_A_SW2 and BR_B_SW1.
 4. For `DC-SERVER-ACCESS`, `show running-config` confirmed the binding was missing on both DC switches.
 
-## Complication: the status command lies
+## Complication: the status output is unreliable in this Packet Tracer image
 
 On this image `show ip interface vlan X` keeps saying **"access list is not set"** even when the ACL is demonstrably enforcing (seen on HQ-DIST-SW2 while a ping was being blocked, and on DC_CORE/DIST_SW1 after the fix). Binding was therefore confirmed by three independent methods, never by that line:
 
