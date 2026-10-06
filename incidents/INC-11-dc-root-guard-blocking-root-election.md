@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | **Severity** | P2 — VLAN 99 at the DC could not converge on its intended root |
-| **Type** | Real defect in the build (not planted) |
+| **Type** | Unplanned defect in the build (not planted) |
 | **Build day** | Sept 29 |
 | **Devices** | DC_CORE/DIST_SW1 (two switchports) |
 | **Status** | Resolved by configuration alone |
