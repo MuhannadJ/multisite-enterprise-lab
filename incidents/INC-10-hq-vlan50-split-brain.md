@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | **Severity** | P2 — HQ wireless VLAN had no stable gateway or loop-free topology |
-| **Type** | Real defect (config fault first, then a simulator state bug) |
+| **Type** | Unplanned defect (config fault first, then a simulator state bug) |
 | **Build days** | Sept 27–29 |
 | **Devices** | HQ-DIST-SW1, HQ-DIST-SW2, HQ_ACC_SW3 |
 | **Status** | Resolved (second phase only by restarting Packet Tracer) |
