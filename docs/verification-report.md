@@ -69,7 +69,7 @@ Tests that failed or were inconclusive are included. Items with no evidence are 
 - Ping from the HQ PC to 10.20.20.10 succeeded 4/4.
 - CDP map used to choose the ports: Fa0/1 → HQ_ACC_SW1, Fa0/2 → HQ_ACC_SW2, Fa0/3 → HQ_ACC_SW3, Po1 (Fa0/4–5) → HQ-DIST-SW2, Fa0/6 → HQ_CORE_RTR1, Fa0/7 → HQ_CORE_RTR2.
 
-**Result.** Pass, with the caveat that this simulator does not stop an SVI from forwarding when the SVI is shut. The design's failover is proven; the simulator's SVI-shutdown shortcut is not a valid failover test.
+**Result.** Pass, with the caveat that this simulator does not stop an SVI from forwarding when the SVI is shut. The design's failover was tested; the simulator's SVI-shutdown shortcut is not a valid failover test.
 
 ## V5 — DC-SERVER-ACCESS final state
 
