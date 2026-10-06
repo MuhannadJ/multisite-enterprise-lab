@@ -26,13 +26,13 @@ One report per incident, written in NOC style: **symptom → impact → diagnosi
 | [INC-04](INC-04-ipsec-psk-mismatch-hq-branch-b.md) | IPsec pre-shared key mismatch, HQ ↔ Branch B | Planted | P2 | Resolved |
 | [INC-05](INC-05-dhcp-helper-address-wrong-hq-dist-sw2.md) | Wrong DHCP helper address on HQ-DIST-SW2 (NOC-0924-03) | Planted | P3 | Resolved |
 | [INC-06](INC-06-branch-b-dhcp-blocked-by-dc-acl.md) | Branch B DHCP blocked by the DC server ACL (NOC-0925-01) | Planted | P2 | Resolved |
-| [INC-07](INC-07-nat-pat-translating-inter-site-traffic.md) | PAT translating inter-site traffic; TACACS+ connections reset | Real | P2 | Resolved |
-| [INC-08](INC-08-acls-configured-but-never-bound.md) | ACLs configured but never bound to interfaces | Real | P2 | Resolved |
-| [INC-09](INC-09-hsrp-stp-priority-misalignment.md) | HSRP priorities misaligned with STP roots | Real | P3 | Resolved |
-| [INC-10](INC-10-hq-vlan50-split-brain.md) | HQ VLAN 50 HSRP and STP split-brain | Real | P2 | Resolved |
-| [INC-11](INC-11-dc-root-guard-blocking-root-election.md) | Root Guard blocking root election at the DC | Real | P2 | Resolved |
-| [INC-12](INC-12-wireless-rollout-defects.md) | Wireless rollout defects (a recurring omission class) | Real | P2 | Resolved |
-| [INC-13](INC-13-gre-ipsec-stuck-sa-after-load.md) | GRE-over-IPsec tunnel stuck after load | Real | P2 | **Open** |
+| [INC-07](INC-07-nat-pat-translating-inter-site-traffic.md) | PAT translating inter-site traffic; TACACS+ connections reset | Unplanned | P2 | Resolved |
+| [INC-08](INC-08-acls-configured-but-never-bound.md) | ACLs configured but never bound to interfaces | Unplanned | P2 | Resolved |
+| [INC-09](INC-09-hsrp-stp-priority-misalignment.md) | HSRP priorities misaligned with STP roots | Unplanned | P3 | Resolved |
+| [INC-10](INC-10-hq-vlan50-split-brain.md) | HQ VLAN 50 HSRP and STP split-brain | Unplanned | P2 | Resolved |
+| [INC-11](INC-11-dc-root-guard-blocking-root-election.md) | Root Guard blocking root election at the DC | Unplanned | P2 | Resolved |
+| [INC-12](INC-12-wireless-rollout-defects.md) | Wireless rollout defects (a recurring omission class) | Unplanned | P2 | Resolved |
+| [INC-13](INC-13-gre-ipsec-stuck-sa-after-load.md) | GRE-over-IPsec tunnel stuck after load | Unplanned | P2 | **Open** |
 
 Smaller findings: [minor-findings.md](minor-findings.md).
 
