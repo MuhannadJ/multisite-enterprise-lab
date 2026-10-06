@@ -32,7 +32,7 @@ Made the pre-shared key for the HQ ↔ Branch B peer pair identical on both ends
 
 ## Verification
 
-Phase 1 reached `QM_IDLE` to the Branch B peer, Tunnel2 came up, and OSPF formed a FULL adjacency across it. Branch B failover was later proven end to end ([V2](../docs/verification-report.md#v2--branch-b-wan-failover)).
+Phase 1 reached `QM_IDLE` to the Branch B peer, Tunnel2 came up, and OSPF formed a FULL adjacency across it. Branch B failover was later tested end to end ([V2](../docs/verification-report.md#v2--branch-b-wan-failover)).
 
 ## Lesson, linked to INC-13
 
