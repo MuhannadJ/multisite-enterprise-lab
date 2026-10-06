@@ -1,6 +1,6 @@
 # Multi-Site Enterprise Network Lab
 
-A four-site enterprise network (HQ, data center, two branches, WAN) built in Cisco Packet Tracer, then **troubleshot, hardened and failover-tested** the way a NOC would run it.
+A four-site enterprise network (HQ, data center and two branches) built in Cisco Packet Tracer and connected through a simulated WAN. Configured routing, redundancy, wireless and management/access controls, tested three failover scenarios, and documented 13 troubleshooting cases using a structured NOC-style workflow.
 
 **Read next:** [Troubleshooting](TROUBLESHOOTING.md) · [Key findings](docs/key-findings.md) · [Full overview](docs/full-overview.md) · [All 13 incident reports](incidents/README.md) · [Device configs](configs/README.md)
 
@@ -17,8 +17,8 @@ A four-site enterprise network (HQ, data center, two branches, WAN) built in Cis
 | **Scale** | 22 routers and switches, a wireless controller, 4 access points, 3 servers, 4 sites |
 | **Routing** | OSPF in 5 areas (Branch B totally stubby), floating static backup routes |
 | **Redundancy** | HSRP gateway pairs aligned with STP roots, LACP EtherChannel, GRE-over-IPsec backup tunnels to both branches |
-| **Security** | SSH-only management with a VTY ACL on 19 devices, two traffic ACLs, DHCP snooping and DAI (not at Branch B), port security |
-| **Services** | Central DHCP/DNS, AAA, syslog/NTP, SNMPv2c, PAT on all four edge routers |
+| **Security** | SSH-only management with a VTY ACL on 19 devices, two traffic ACLs, DHCP snooping and DAI at HQ and Branch A, port security |
+| **Services** | Central DHCP/DNS, AAA (TACACS+ on two routers, RADIUS for wireless), syslog/NTP, SNMPv2c, PAT on all four edge routers |
 | **Wireless** | WPA2-Enterprise (802.1X): one controller, four access points, one per site |
 
 ## What was tested
@@ -32,14 +32,9 @@ A four-site enterprise network (HQ, data center, two branches, WAN) built in Cis
 | DHCP relay and leases at HQ, Branch A, Branch B | Pass | Operator-observed |
 | Wireless client login at HQ, DC, Branch B | Pass (Branch A not confirmed) | Operator-observed |
 
-## What did not work
+## Open items
 
-- **Packet Tracer cannot do** VRRP, GLBP, IP SLA or modern IPsec profiles. HSRP and crypto maps replaced them.
-- **One backup tunnel can get stuck after the file is loaded.** The cause is unproven; a recovery procedure is documented ([INC-13](incidents/INC-13-gre-ipsec-stuck-sa-after-load.md)).
-- **Wireless AP selection is not controlled.** At an AP range of 20–30 m most phones could not associate; at 100 m they do, but some join an AP at another site. Cause not isolated. A Branch A client login was not confirmed.
-- **TACACS+** is a two-router pilot only.
-
-Full list: [known limitations](docs/known-limitations.md).
+After the file is loaded, one GRE-over-IPsec tunnel can stick. The cause has not been established; a recovery procedure is documented ([INC-13](incidents/INC-13-gre-ipsec-stuck-sa-after-load.md)). Other platform notes: [known limitations](docs/known-limitations.md).
 
 ---
 
