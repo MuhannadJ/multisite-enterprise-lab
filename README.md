@@ -30,7 +30,7 @@ A four-site enterprise network (HQ, data center and two branches) built in Cisco
 | `DATA-IN` ACL blocks user VLAN → management VLAN | Pass | Blocked ping + counters (tested on HQ-DIST-SW1) |
 | `DC-SERVER-ACCESS` ACL final state | 0 hits on the closing `deny ip any any` | Captured output |
 | DHCP relay and leases at HQ, Branch A, Branch B | Pass | Operator-observed |
-| Wireless client login at HQ, DC, Branch B | Pass (Branch A not confirmed) | Operator-observed |
+| Wireless client login at HQ, DC, Branch A, Branch B | Pass | Operator-observed |
 
 ## Open items
 
@@ -40,6 +40,6 @@ After the file is loaded, one GRE-over-IPsec tunnel can stick. The cause has not
 
 **Skills shown:** OSPF · HSRP · STP and EtherChannel · VLANs and trunking · ACLs · NAT/PAT · DHCP snooping and DAI · GRE-over-IPsec · RADIUS 802.1X · structured troubleshooting
 
-*How I worked: Configured, tested and troubleshot all 22 devices from a design specification, with daily verification checks. To practise NOC-style diagnosis, 6 faults were seeded into the build and diagnosed without being told the fault location, while 7 additional unplanned defects surfaced during implementation. Each incident was investigated from symptoms using show-command evidence and packet traces.*
+*How I worked: Configured, tested and troubleshot all 22 routers and switches from a design specification, with daily verification checks. To practise NOC-style diagnosis, 6 faults were seeded into the build and diagnosed without being told the fault location, while 7 additional unplanned defects surfaced during implementation. Each incident was investigated from symptoms using show-command evidence and packet traces.*
 
 *Author: Muhannad · CCNA 200-301. Contact details are on my GitHub profile.*
