@@ -2,7 +2,7 @@
 
 This report records what was tested, how, and how strong the evidence is. Results are labelled:
 
-- **Captured** — CLI output was pasted into the working session and reviewed against the expected behaviour.
+- **Output reviewed in session** — CLI output was pasted into the working session and reviewed against the expected behaviour.
 - **Operator-observed** — the lab owner ran the test and reported the result; no output was reviewed.
 
 Tests that failed or were inconclusive are included. Items with no evidence are listed at the end rather than left out.
@@ -11,18 +11,18 @@ Tests that failed or were inconclusive are included. Items with no evidence are 
 
 | ID | Test | Result | Evidence |
 |---|---|---|---|
-| V1 | Branch A primary WAN link down → IPsec tunnel carries traffic | Pass | Captured |
-| V2 | Branch B primary WAN link down → IPsec tunnel carries traffic | Pass | Captured |
-| V3 | HQ HSRP failover: control plane and preemption | Pass | Captured |
-| V4 | HQ HSRP failover: data plane forwarding and ACL enforcement by the standby switch | Pass with platform caveat | Captured |
-| V5 | `DC-SERVER-ACCESS` final state | Pass (`deny ip any any` = 0 hits) | Captured |
-| V6 | `DATA-IN` blocks VLAN 10 → VLAN 99 | Pass | Captured at HQ-DIST-SW1; blocked ping at HQ |
+| V1 | Branch A primary WAN link down → IPsec tunnel carries traffic | Pass | Output reviewed in session |
+| V2 | Branch B primary WAN link down → IPsec tunnel carries traffic | Pass | Output reviewed in session |
+| V3 | HQ HSRP failover: control plane and preemption | Pass | Output reviewed in session |
+| V4 | HQ HSRP failover: data plane forwarding and ACL enforcement by the standby switch | Pass with platform caveat | Output reviewed in session |
+| V5 | `DC-SERVER-ACCESS` final state | Pass (`deny ip any any` = 0 hits) | Output reviewed in session |
+| V6 | `DATA-IN` blocks VLAN 10 → VLAN 99 | Pass | Output reviewed in session at HQ-DIST-SW1; blocked ping at HQ |
 | V7 | DHCP relay and lease across HQ, Branch A, Branch B | Pass after INC-05/06/07 | Operator-observed |
 | V8 | TACACS+ authentication on the two pilot routers | Pass, logins land at `>` | Operator-observed |
 | V9 | Wireless: AP join (4 of 4) | Pass | Operator-observed (WLC monitor summary) |
 | V10 | Wireless: WPA2-Enterprise client login | Pass at HQ, DC, Branch A, Branch B | Operator-observed (Branch A: phone IP-configuration screenshot reviewed) |
 | V11 | VTY ACL denies non-MGMT sources | Pass on HQ_EDGE_RTR1 and HQ-DIST-SW1 | Operator-observed (deny counters rising, SSH refused) |
-| V12 | GRE-over-IPsec stuck-SA fault and recovery | Reproduced twice, recovered once | Captured |
+| V12 | GRE-over-IPsec stuck-SA fault and recovery | Reproduced twice, recovered once | Output reviewed in session |
 
 ---
 
