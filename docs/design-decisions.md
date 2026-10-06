@@ -46,7 +46,7 @@ Each entry: **decision**, **why**, **trade-off**. Decisions marked *(reversed)* 
 
 **`DATA-IN` blocks VLAN 10 from every VLAN 99.** Users cannot reach any management subnet at any site, including their own. Applied inbound on the VLAN 10 SVI so it is enforced at the first Layer 3 hop.
 
-**`DC-SERVER-ACCESS` as a per-service allow-list.** DHCP relay from any site, DNS per site subnet, RADIUS only from the VLAN 99 subnets (where the APs live), ICMP echo/echo-reply only, explicit `deny ip any any`. TACACS+, syslog and NTP use broad source ranges because the platform has no source-interface option for them.
+**`DC-SERVER-ACCESS` as a per-service allow-list.** DHCP relay from any site, DNS per site subnet, RADIUS only from the VLAN 99 subnets (where the WLC and APs live), ICMP echo/echo-reply only, explicit `deny ip any any`. TACACS+, syslog and NTP use broad source ranges because the platform has no source-interface option for them.
 
 ## Wireless
 
@@ -56,6 +56,6 @@ Each entry: **decision**, **why**, **trade-off**. Decisions marked *(reversed)* 
 
 **WPA2-Enterprise with PEAP-MSCHAPv2.** EAP-TLS was ruled out as requiring a PKI buildout beyond CCNA scope. WPA2-Personal was rejected because it contradicted the Enterprise design.
 
-**FlexConnect local switching with local authentication ON.** *(reversed.)* Local authentication was first disabled to make the WLC the RADIUS client, then re-enabled after clients could associate only with the HQ AP. With local authentication on, the APs act as the RADIUS clients, which fits `DC-SERVER-ACCESS` permitting RADIUS from the VLAN 99 subnets where the APs live.
+**FlexConnect local switching with local authentication ON.** *(reversed.)* Local authentication was first disabled to make the WLC the RADIUS client, then re-enabled after clients could associate only with the HQ AP. With local authentication on, wireless logins work at all four sites. The AAA server lists only the WLC (10.10.99.10) as a RADIUS client, so which device originates the RADIUS requests was not established; `DC-SERVER-ACCESS` permits RADIUS from the four VLAN 99 subnets, where the WLC and APs live.
 
 **DHCP-based AP discovery instead of static controller addresses.** *(reversed.)* The static `capwap ap controller ip address` plan was replaced by the WLC address in each site's DHCP pool, with VLAN 99 relays built at all four sites to support it.
