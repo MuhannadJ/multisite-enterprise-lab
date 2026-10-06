@@ -4,7 +4,7 @@ Each entry: **decision**, **why**, **trade-off**. Decisions marked *(reversed)* 
 
 ## Platform
 
-**Cisco Packet Tracer instead of EVE-NG.** No image sourcing or host setup, and the CCNA feature set is covered. *Trade-off:* the simulator's gaps shaped the design; see [known limitations](known-limitations.md).
+**Cisco Packet Tracer instead of EVE-NG.** No image sourcing or host setup, and it supports the CCNA features this lab uses. *Trade-off:* the simulator's gaps shaped the design; see [known limitations](known-limitations.md).
 
 **HSRP everywhere.** VRRP and GLBP were tested on a throwaway switch pair and rejected on every subcommand. VRRP (open standard, multi-vendor, intended at the DC) and GLBP (active/active load sharing, intended at Branch A) are kept on paper as the original intent. *Trade-off:* the active/standby model is simpler than the original design; load sharing is achieved by alternating HSRP active and STP root per VLAN.
 
