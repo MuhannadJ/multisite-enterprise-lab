@@ -12,6 +12,6 @@
 
 **Also documented:** 8 more incidents, including ACLs that were configured but never applied (confirmed by counters, blocked pings and a packet trace, because the status command was wrong), a spanning-tree root blocked by Root Guard, and a wireless rollout step missed at different sites.
 
-**Reported honestly:** one issue is still open. After loading the lab, one GRE-over-IPsec tunnel can stick. The cause is unproven, six hypotheses were ruled out, and the recovery steps are documented ([INC-13](incidents/INC-13-gre-ipsec-stuck-sa-after-load.md)).
+One issue is still open. After loading the lab, one GRE-over-IPsec tunnel can stick. The cause is unproven, six hypotheses were ruled out, and the recovery steps are documented ([INC-13](incidents/INC-13-gre-ipsec-stuck-sa-after-load.md)).
 
-All reports: [incidents/](incidents/README.md) · Ten strongest findings: [key findings](docs/key-findings.md) · [Back to the README](README.md)
+All reports: [incidents/](incidents/README.md) · Ten selected findings: [key findings](docs/key-findings.md) · [Back to the README](README.md)
