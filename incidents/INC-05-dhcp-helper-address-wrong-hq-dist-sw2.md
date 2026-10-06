@@ -1,10 +1,10 @@
-# INC-05 — Wrong DHCP helper address on HQ-DIST-SW2 (NOC-0924-03)
+# INC-05 — Wrong DHCP helper address on HQ-DIST-SW2 (Lab ticket 1)
 
 | | |
 |---|---|
 | **Severity** | P3 — latent; no user impact while both HQ distribution switches are up |
 | **Type** | Planted fault, found by NOC-style diagnosis |
-| **Ticket** | NOC-0924-03 |
+| **Lab ticket** | 1 |
 | **Build day** | Day 5 (services and wireless) |
 | **Devices** | HQ-DIST-SW2 (VLAN 10 SVI) |
 | **Status** | Resolved |
