@@ -16,12 +16,12 @@ A four-site enterprise network (HQ, data center, two branches, WAN) built in Cis
 |---|---|
 | **Scale** | 22 routers and switches, a wireless controller, 4 access points, 3 servers, 4 sites |
 | **Routing** | OSPF in 5 areas (Branch B totally stubby), floating static backup routes |
-| **Redundancy** | HSRP gateway pairs aligned with STP roots, LACP EtherChannel, GRE-over-IPsec backup tunnels to both branches (a stretch goal beyond CCNA) |
+| **Redundancy** | HSRP gateway pairs aligned with STP roots, LACP EtherChannel, GRE-over-IPsec backup tunnels to both branches |
 | **Security** | SSH-only management with a VTY ACL on 19 devices, two traffic ACLs, DHCP snooping and DAI (not at Branch B), port security |
 | **Services** | Central DHCP/DNS, AAA, syslog/NTP, SNMPv2c, PAT on all four edge routers |
 | **Wireless** | WPA2-Enterprise (802.1X): one controller, four access points, one per site |
 
-## What was proven
+## What was tested
 
 | Test | Result | Evidence |
 |---|---|---|
@@ -45,6 +45,6 @@ Full list: [known limitations](docs/known-limitations.md).
 
 **Skills shown:** OSPF · HSRP · STP and EtherChannel · VLANs and trunking · ACLs · NAT/PAT · DHCP snooping and DAI · GRE-over-IPsec · RADIUS 802.1X · structured troubleshooting
 
-*How I worked: Configured, tested and troubleshot all 22 devices from a design specification, with daily verification checks. To practice NOC-style diagnosis, 6 faults were seeded into the build and found blind, while 7 additional real defects surfaced during deployment. Each incident was investigated from symptoms using show-command evidence and packet traces.*
+*How I worked: Configured, tested and troubleshot all 22 devices from a design specification, with daily verification checks. To practise NOC-style diagnosis, 6 faults were seeded into the build and diagnosed without being told the fault location, while 7 additional unplanned defects surfaced during implementation. Each incident was investigated from symptoms using show-command evidence and packet traces.*
 
 *Author: Muhannad · CCNA 200-301. Contact details are on my GitHub profile.*
