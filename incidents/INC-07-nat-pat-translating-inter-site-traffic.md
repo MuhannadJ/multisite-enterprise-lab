@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | **Severity** | P2 — TCP services between sites failed; ICMP hid the problem |
-| **Type** | Real defect in the build (not planted) |
+| **Type** | Unplanned defect in the build (not planted) |
 | **Build days** | Day 4 (first seen), Day 5 (HQ manifestation and final fix) |
 | **Devices** | DC-EDGE-RTR1, HQ_EDGE_RTR1, BR_A_RTR1, BR_B_RT1 |
 | **Status** | Resolved on all four edge routers |
