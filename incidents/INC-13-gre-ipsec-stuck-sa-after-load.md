@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | **Severity** | P2 — backup path to one branch unavailable after each load; primary paths unaffected |
-| **Type** | Real defect, cause **unproven** |
+| **Type** | Unplanned defect, cause **unproven** |
 | **Dates** | Oct 2–3 |
 | **Devices** | HQ_EDGE_RTR1 (Tunnel1, Tunnel2), BR-A-RTR2, BR_B_RT1; underlay INET_RTR1 |
 | **Status** | **Open.** Workaround documented and observed to work once ([runbooks R2](../docs/runbooks.md#r2--recover-a-stuck-gre-over-ipsec-tunnel)) |
@@ -52,4 +52,4 @@ HQ negotiates both tunnels at about the same time after a load. Both observed fa
 
 - After every load, run the two checks in R2 before trusting either backup path.
 - If a tunnel is in `MM_KEY_EXCH` and the keys match, suspect stale state before changing config again.
-- Report the fault honestly: a reproducible, characterised, unexplained simulator behaviour with a documented recovery.
+- Record the fault as a reproducible, characterised, unexplained simulator behaviour with a documented recovery.
