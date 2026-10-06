@@ -8,8 +8,6 @@ A four-site enterprise network (HQ campus, data center and two branches) built d
 
 The point of this repo is not only the final design. It is the **evidence trail**: 13 incident reports (symptom → evidence → root cause → fix → verification), a verification report that separates *captured output* from *operator-observed* results, and a list of what the platform could not do.
 
-> **Scope:** CCNA-level routing, switching, security and services. GRE-over-IPsec backup tunnels are included as a **stretch goal beyond CCNA scope** and are documented as such.
-
 ---
 
 ## At a glance
