@@ -6,7 +6,7 @@ The long version of the [README](../README.md): the design in detail and the evi
 
 A four-site enterprise network — HQ campus, data center, two branches, and a simulated WAN — built device by device in Cisco Packet Tracer, then **troubleshot, hardened and failover-tested** the way a NOC would run it.
 
-The point of this repo is not only the final design. It is the **evidence trail**: 13 incident reports (symptom → evidence → root cause → fix → verification), a verification report that separates *captured output* from *operator-observed* results, and an honest list of what the platform could not do.
+The point of this repo is not only the final design. It is the **evidence trail**: 13 incident reports (symptom → evidence → root cause → fix → verification), a verification report that separates *captured output* from *operator-observed* results, and a list of what the platform could not do.
 
 > **Scope:** CCNA-level routing, switching, security and services. GRE-over-IPsec backup tunnels are included as a **stretch goal beyond CCNA scope** and are documented as such.
 
@@ -56,7 +56,7 @@ Design rationale for every non-obvious choice: [`docs/design-decisions.md`](desi
 
 ---
 
-## What was proven, and how
+## What was tested, and how
 
 Full detail and raw evidence summaries: [`docs/verification-report.md`](verification-report.md).
 
@@ -77,7 +77,7 @@ Evidence labels: **Captured output** means the CLI output was pasted into the wo
 
 ## Incident log
 
-Thirteen reports in [`incidents/`](../incidents/README.md). Six were silently planted faults found through normal NOC diagnosis; seven were real defects found in the build itself.
+Thirteen reports in [`incidents/`](../incidents/README.md). Six were silently planted faults found through normal NOC diagnosis; seven were unplanned defects found in the build itself.
 
 | ID | Title | Type | Severity |
 |---|---|---|---|
@@ -87,13 +87,13 @@ Thirteen reports in [`incidents/`](../incidents/README.md). Six were silently pl
 | [INC-04](../incidents/INC-04-ipsec-psk-mismatch-hq-branch-b.md) | IPsec pre-shared key mismatch, HQ ↔ Branch B | Planted | P2 |
 | [INC-05](../incidents/INC-05-dhcp-helper-address-wrong-hq-dist-sw2.md) | Wrong DHCP helper address on HQ-DIST-SW2 (NOC-0924-03) | Planted | P3 |
 | [INC-06](../incidents/INC-06-branch-b-dhcp-blocked-by-dc-acl.md) | Branch B DHCP blocked by the DC server ACL (NOC-0925-01) | Planted | P2 |
-| [INC-07](../incidents/INC-07-nat-pat-translating-inter-site-traffic.md) | PAT translating inter-site traffic; TACACS+ connections reset | Real | P2 |
-| [INC-08](../incidents/INC-08-acls-configured-but-never-bound.md) | ACLs configured but never bound to interfaces | Real | P2 |
-| [INC-09](../incidents/INC-09-hsrp-stp-priority-misalignment.md) | HSRP priorities misaligned with STP roots | Real | P3 |
-| [INC-10](../incidents/INC-10-hq-vlan50-split-brain.md) | HQ VLAN 50 HSRP and STP split-brain | Real | P2 |
-| [INC-11](../incidents/INC-11-dc-root-guard-blocking-root-election.md) | Root Guard blocking root election at the DC | Real | P2 |
-| [INC-12](../incidents/INC-12-wireless-rollout-defects.md) | Wireless rollout defects (a recurring omission class) | Real | P2 |
-| [INC-13](../incidents/INC-13-gre-ipsec-stuck-sa-after-load.md) | GRE-over-IPsec tunnel stuck after load | Real | P2 |
+| [INC-07](../incidents/INC-07-nat-pat-translating-inter-site-traffic.md) | PAT translating inter-site traffic; TACACS+ connections reset | Unplanned | P2 |
+| [INC-08](../incidents/INC-08-acls-configured-but-never-bound.md) | ACLs configured but never bound to interfaces | Unplanned | P2 |
+| [INC-09](../incidents/INC-09-hsrp-stp-priority-misalignment.md) | HSRP priorities misaligned with STP roots | Unplanned | P3 |
+| [INC-10](../incidents/INC-10-hq-vlan50-split-brain.md) | HQ VLAN 50 HSRP and STP split-brain | Unplanned | P2 |
+| [INC-11](../incidents/INC-11-dc-root-guard-blocking-root-election.md) | Root Guard blocking root election at the DC | Unplanned | P2 |
+| [INC-12](../incidents/INC-12-wireless-rollout-defects.md) | Wireless rollout defects (a recurring omission class) | Unplanned | P2 |
+| [INC-13](../incidents/INC-13-gre-ipsec-stuck-sa-after-load.md) | GRE-over-IPsec tunnel stuck after load | Unplanned | P2 |
 
 The best cases are summarised on the [troubleshooting page](../TROUBLESHOOTING.md).
 
@@ -157,8 +157,8 @@ All keys, SNMP community strings and password hashes in `configs/` are lab-only 
 - **Scope discipline:** checking *where* a fault lives (one device, one site, one path) before changing anything; incidents INC-05, INC-06 and INC-13 are scope problems as much as config problems.
 - **Packet-level reasoning:** INC-07 was solved by tracing a TCP handshake hop by hop in Simulation Mode and noticing a rewritten source address.
 - **Evidence over assertion:** results are labelled by how they were obtained, and failed or inconclusive tests are written up rather than dropped.
-- **Escalation-quality write-ups:** each report states impact, what was ruled out, and what remains unknown.
+- **Write-ups:** each report states impact, what was ruled out, and what remains unknown.
 
 ---
 
-*Author: add name and contact links here before publishing.*
+*Author: Muhannad · CCNA 200-301. Contact details are on my GitHub profile.*
