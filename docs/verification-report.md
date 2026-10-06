@@ -43,7 +43,7 @@ Tests that failed or were inconclusive are included. Items with no evidence are 
 
 ## V2 — Branch B WAN failover
 
-**Method.** Shut BR_B_RT1 Gi0/0/2 (link to ISP_RTR2). Trace from BR_B_SW1 (Branch B has no PC) and read the IPsec counters on BR_B_RT1. Restore the link.
+**Method.** Shut BR_B_RT1 Gi0/0/2 (link to ISP_RTR2). Trace from BR_B_SW1 and read the IPsec counters on BR_B_RT1. Restore the link.
 
 **Evidence.**
 - Route before: next hop 172.16.4.2 (ISP_RTR2), metric 4. Route after: next hop 172.16.101.1 (HQ end of Tunnel2), metric 1005.
