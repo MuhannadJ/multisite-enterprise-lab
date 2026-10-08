@@ -6,7 +6,7 @@ The long version of the [README](../README.md): the design in detail and the evi
 
 A four-site enterprise network (HQ campus, data center and two branches) built device by device in Cisco Packet Tracer and connected through a simulated WAN. Configured routing, redundancy, wireless and management/access controls, tested three failover scenarios, and documented 13 troubleshooting cases using a structured NOC-style workflow.
 
-The point of this repo is not only the final design. It is the **evidence trail**: 13 incident reports (symptom → evidence → root cause → fix → verification), a verification report that separates *captured output* from *operator-observed* results, and a list of what the platform could not do.
+The point of this repo is not only the final design. It is the **evidence trail**: 13 incident reports (symptom → evidence → root cause → fix → verification), a verification report that separates *output reviewed in session* from *operator-observed* results, and a list of what the platform could not do.
 
 ---
 
